@@ -1,0 +1,24 @@
+version: '3.8'
+services:
+  app:
+    image: my_docker_image
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/empmanage
+      SPRING_DATASOURCE_USERNAME: javastudent
+      SPRING_DATASOURCE_PASSWORD: javastudent123
+  db:
+    image: mysql:8.0.41
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: empmanage
+      MYSQL_USER: javastudent
+      MYSQL_PASSWORD: javastudent123
+    volumes:
+      - mysql-data:/var/lib/mysql
+
+volumes:
+;
