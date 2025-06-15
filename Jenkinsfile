@@ -8,17 +8,21 @@ pipeline {
             }
         }
 
-        stage('Build') {
-            steps {
-                bat '"%WORKSPACE%\\mvnw.cmd" clean package'
-            }
-        }
+       stage('Build') {
+           steps {
+               bat '''
+               call mvnw.cmd clean package
+               '''
+           }
+       }
 
-        stage('Test') {
-            steps {
-                bat '"%WORKSPACE%\\mvnw.cmd" test'
-            }
-        }
+       stage('Test') {
+           steps {
+               bat '''
+               call mvnw.cmd test
+               '''
+           }
+       }
 
         stage('Deploy') {
             steps {
