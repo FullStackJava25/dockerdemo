@@ -22,8 +22,10 @@ pipeline {
 
         stage('Deploy') {
             steps {
-                bat 'for /f %%i in (\'dir /b target\\*.jar\') do java -jar target\\%%i'
+                bat '''
+                for /f %%i in ('dir /b target\\*.jar') do (
+                    java -jar target\\%%i
+                )
+                '''
             }
         }
-    }
-}
