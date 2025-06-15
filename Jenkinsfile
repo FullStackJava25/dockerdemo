@@ -10,13 +10,13 @@ pipeline {
 
         stage('Build') {
             steps {
-                bat 'mvnw.cmd clean package'
+                bat '"%WORKSPACE%\\mvnw.cmd" clean package'
             }
         }
 
         stage('Test') {
             steps {
-                bat 'mvnw.cmd test'
+                bat '"%WORKSPACE%\\mvnw.cmd" test'
             }
         }
 
@@ -25,7 +25,7 @@ pipeline {
                 script {
                     def jarFiles = bat(script: 'dir /b target\\*.jar', returnStdout: true).trim().split("\r\n")
                     if (jarFiles.length > 0) {
-                        bat "java -jar target\\${jarFiles[0]}"
+                        bat "java -jar \"target\\${jarFiles[0]}\""
                     } else {
                         error "No JAR file found in target directory."
                     }
