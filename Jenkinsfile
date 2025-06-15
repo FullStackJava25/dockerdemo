@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git branch: 'main', url: 'https://github.com/FullStackJava25/dockerdemo.git'
+                git branch: 'master', url: 'https://github.com/FullStackJava25/dockerdemo.git'
             }
         }
 
