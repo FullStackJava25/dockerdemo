@@ -8,28 +8,30 @@ pipeline {
             }
         }
 
-       stage('Build') {
-           steps {
-               bat '''
-               call mvnw.cmd clean package
-               '''
-           }
-       }
+        stage('Build') {
+            steps {
+                bat '''
+                call mvnw.cmd clean package
+                '''
+            }
+        }
 
-       stage('Test') {
-           steps {
-               bat '''
-               call mvnw.cmd test
-               '''
-           }
-       }
+        stage('Test') {
+            steps {
+                bat '''
+                call mvnw.cmd test
+                '''
+            }
+        }
 
         stage('Deploy') {
             steps {
                 script {
-                    def jarFiles = bat(script: 'dir /b target\\*.jar', returnStdout: true).trim().split("\r\n")
-                    if (jarFiles.length > 0) {
-                        bat "java -jar \"target\\${jarFiles[0]}\""
+                    def jarOutput = bat(script: 'dir /b target\\*.jar', returnStdout: true).trim()
+                    if (jarOutput) {
+                        def jarFile = jarOutput.split("\\r?\\n")[0]
+                        echo "Deploying ${jarFile}"
+                        bat "java -jar \"target\\${jarFile}\""
                     } else {
                         error "No JAR file found in target directory."
                     }
