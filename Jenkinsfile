@@ -10,19 +10,19 @@ pipeline {
 
         stage('Build') {
             steps {
-                sh './mvnw clean package'
+                bat './mvnw clean package'
             }
         }
 
         stage('Test') {
             steps {
-                sh './mvnw test'
+                bat './mvnw test'
             }
         }
 
         stage('Deploy') {
             steps {
-                sh 'java -jar target/*.jar'
+                bat 'java -jar target/*.jar'
             }
         }
     }
