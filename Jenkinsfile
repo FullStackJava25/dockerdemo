@@ -10,20 +10,19 @@ pipeline {
 
         stage('Build') {
             steps {
-                bat '"%CD%\\mvnw.cmd" clean package'
-
+                bat "\"%CD%\\mvnw.cmd\" clean package"
             }
         }
 
         stage('Test') {
             steps {
-                bat './mvnw test'
+                bat "\"%CD%\\mvnw.cmd\" test"
             }
         }
 
         stage('Deploy') {
             steps {
-                bat 'java -jar target/*.jar'
+                bat 'for /f %%i in (\'dir /b target\\*.jar\') do java -jar target\\%%i'
             }
         }
     }
